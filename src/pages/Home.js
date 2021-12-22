@@ -11,21 +11,18 @@ function Home() {
         <h1>Recent Posts</h1>
       </Grid.Row>
       <Grid.Row>
-        {user && (
+        {(
           <Grid.Column>
             <PostForm />
           </Grid.Column>
         )}
-        {loading ? (
-          <h1>Loading posts..</h1>
-        ) : (
+        {(
           <Transition.Group>
-            {posts &&
-              posts.map((post) => (
+            {(
                 <Grid.Column style={{ marginBottom: 20 }}>
                   <PostCard />
                 </Grid.Column>
-              ))}
+              )}
           </Transition.Group>
         )}
       </Grid.Row>
