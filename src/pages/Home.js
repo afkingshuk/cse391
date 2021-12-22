@@ -1,11 +1,10 @@
-import React from 'react';
-import { Grid, Transition } from 'semantic-ui-react';
+import React from "react";
+import { Grid, Transition } from "semantic-ui-react";
 
-import PostCard from '../components/PostCard';
-import PostForm from '../components/PostForm';
+import PostCard from "../components/PostCard";
+import PostForm from "../components/PostForm";
 
 function Home() {
- 
   return (
     <Grid columns={3}>
       <Grid.Row className="page-title">
@@ -23,8 +22,8 @@ function Home() {
           <Transition.Group>
             {posts &&
               posts.map((post) => (
-                <Grid.Column key={} style={{ marginBottom: 20 }}>
-                  <PostCard post={} />
+                <Grid.Column style={{ marginBottom: 20 }}>
+                  <PostCard />
                 </Grid.Column>
               ))}
           </Transition.Group>
