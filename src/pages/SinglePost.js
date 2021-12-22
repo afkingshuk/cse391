@@ -1,66 +1,33 @@
-import React, { useContext, useState, useRef } from 'react';
-import gql from 'graphql-tag';
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import moment from 'moment';
-import {
-  Button,
-  Card,
-  Form,
-  Grid,
-  Image,
-  Icon,
-  Label
-} from 'semantic-ui-react';
+import React, { useContext, useState, useRef } from "react";
+import gql from "graphql-tag";
+import { useQuery} from "@apollo/react-hooks";
+import moment from "moment";
+import { Card, Form, Grid, Image } from "semantic-ui-react";
 
-import { AuthContext } from '../context/auth';
-import LikeButton from '../components/LikeButton';
-import DeleteButton from '../components/DeleteButton';
-import MyPopup from '../util/MyPopup';
+import { AuthContext } from "../context/auth";
+import DeleteButton from "../components/DeleteButton";
 
 function SinglePost(props) {
   const postId = props.match.params.postId;
   const { user } = useContext(AuthContext);
   const commentInputRef = useRef(null);
 
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState("");
 
   const {
-    data: { getPost }
+    data: { getPost },
   } = useQuery(FETCH_POST_QUERY, {
     variables: {
-      postId
-    }
-  });
-
-  const [submitComment] = useMutation(SUBMIT_COMMENT_MUTATION, {
-    update() {
-      setComment('');
-      commentInputRef.current.blur();
-    },
-    variables: {
       postId,
-      body: comment
-    }
+    },
   });
 
-  function deletePostCallback() {
-    props.history.push('/');
-  }
-
+ 
   let postMarkup;
   if (!getPost) {
     postMarkup = <p>Loading post..</p>;
   } else {
-    const {
-      id,
-      body,
-      createdAt,
-      username,
-      comments,
-      likes,
-      likeCount,
-      commentCount
-    } = getPost;
+    const { id, body, createdAt, username, comments } = getPost;
 
     postMarkup = (
       <Grid>
@@ -80,26 +47,7 @@ function SinglePost(props) {
                 <Card.Description>{body}</Card.Description>
               </Card.Content>
               <hr />
-              <Card.Content extra>
-                <LikeButton user={user} post={{ id, likeCount, likes }} />
-                <MyPopup content="Comment on post">
-                  <Button
-                    as="div"
-                    labelPosition="right"
-                    onClick={() => console.log('Comment on post')}
-                  >
-                    <Button basic color="blue">
-                      <Icon name="comments" />
-                    </Button>
-                    <Label basic color="blue" pointing="left">
-                      {commentCount}
-                    </Label>
-                  </Button>
-                </MyPopup>
-                {user && user.username === username && (
-                  <DeleteButton postId={id} callback={deletePostCallback} />
-                )}
-              </Card.Content>
+              <Card.Content extra></Card.Content>
             </Card>
             {user && (
               <Card fluid>
@@ -118,8 +66,7 @@ function SinglePost(props) {
                       <button
                         type="submit"
                         className="ui button teal"
-                        disabled={comment.trim() === ''}
-                        onClick={submitComment}
+                        disabled={comment.trim() === ""}
                       >
                         Submit
                       </button>
@@ -148,29 +95,14 @@ function SinglePost(props) {
   return postMarkup;
 }
 
-const SUBMIT_COMMENT_MUTATION = gql`
-  mutation($postId: String!, $body: String!) {
-    createComment(postId: $postId, body: $body) {
-      id
-      comments {
-        id
-        body
-        createdAt
-        username
-      }
-      commentCount
-    }
-  }
-`;
 
 const FETCH_POST_QUERY = gql`
-  query($postId: ID!) {
+  query ($postId: ID!) {
     getPost(postId: $postId) {
       id
       body
       createdAt
       username
-      likeCount
       likes {
         username
       }
