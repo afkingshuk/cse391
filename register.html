@@ -1,0 +1,61 @@
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<link rel="shortcut icon" href="/favicon.ico">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="theme-color" content="#000000">
+	<link rel="manifest" href="/manifest.json">
+	<title>Hi World!</title>
+	<link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+	<noscript>You need to enable JavaScript to run this app.</noscript>
+	<div id="root">
+		<div class="ui container">
+			<div class="ui red massive pointing secondary menu"><a class="item" href="/">Home</a>
+				<div class="right menu"><a class="item" href="/login">Login</a><a class="active item" href="/register">Register</a></div>
+			</div>
+			<div class="form-container">
+				<form novalidate="" class="ui form">
+					<h1>Register</h1>
+					<div class="field">
+						<label>Username</label>
+						<div class="ui input">
+							<input placeholder="Username.." name="username" type="text">
+						</div>
+					</div>
+					<div class="field">
+						<label>Email</label>
+						<div class="ui input">
+							<input placeholder="Email.." name="email" type="email">
+						</div>
+					</div>
+					<div class="field">
+						<label>Password</label>
+						<div class="ui input">
+							<input placeholder="Password.." name="password" type="password">
+						</div>
+					</div>
+					<div class="field">
+						<label>Confirm Password</label>
+						<div class="ui input">
+							<input placeholder="Confirm Password.." name="confirmPassword" type="password">
+						</div>
+					</div>
+					<button type="submit" class="ui primary button">Register</button>
+				</form>
+				<div class="ui error message">
+					<ul class="list">
+						<li>value</li>
+						<li>value 2</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+</body>
+</html>
